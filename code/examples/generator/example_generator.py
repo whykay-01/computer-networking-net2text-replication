@@ -190,20 +190,20 @@ class ExampleGenerator(object):
                       % ', '.join([str(node) for node in nx.nodes(graph)]))
                 more_input = True
                 while more_input:
-                    input = input()
-                    if not input:
+                    user_input = input()
+                    if not user_input:
                         more_input = False
-                    elif input not in nx.nodes(graph):
+                    elif user_input not in nx.nodes(graph):
                         print ('Error the given node is unknown')
                     else:
-                        egress_nodes.append(input)
+                        egress_nodes.append(user_input)
 
                 if egress_nodes:
                     invalid_input = False
                 else:
                     print ('You need to specify at least one egress node')
         else:
-            num_egresses = int(input('Number of Egresses? (Total number of nodes: %d)\n' % len(nodes)))
+            num_egresses = int(input('Number of Egresses? (Total number of nodes: %d)\n')) % len(nodes)
             egress_nodes = np.random.choice(nodes, num_egresses, replace=False)
 
         return graph, egress_nodes, name_to_node, node_to_name, sp_lengths, shortest_paths, non_shortest_paths
@@ -256,7 +256,7 @@ class ExampleGenerator(object):
                         asn_to_org_id[asn] = org_id
 
         asn_to_name = dict()
-        for asn, org_id in asn_to_org_id.iteritems():
+        for asn, org_id in asn_to_org_id.items():
             asn_to_name[asn] = org_id_to_name[org_id]
 
         return asn_to_name, names
@@ -345,7 +345,7 @@ class ExampleGenerator(object):
 
         print ('THERE WERE %d UNKNOWN ORGANIZATIONS' % (len(unknown), ))
 
-        for organisation, prefixes in organisation_to_prefix.iteritems():
+        for organisation, prefixes in organisation_to_prefix.items():
             self.stats['organisation_prefixes'].append(len(prefixes))
 
         return organisation_to_prefix, prefix_to_organisation
@@ -397,7 +397,7 @@ class ExampleGenerator(object):
         additional_feature_values = defaultdict(set)
 
         print ('start computing all the paths')
-        for organisation, prefixes in self.organisation_to_prefix.iteritems():
+        for organisation, prefixes in self.organisation_to_prefix.items():
             # decide whether the node is multi-exit (hot-potato routing) or single exit
             # aka pick the egresses
             egress_nodes = self.get_egresses()
