@@ -19,7 +19,8 @@ egress = None
 #yes or no pattern
 yes_or_no_pattern = [{"POS": "AUX"}, {"POS": "PRON"}, {"POS": "VERB"}]
 #how pattern
-how_pattern = [{"LOWER": "how"}]
+how_pattern = [{"LOWER": "how"}, {"LEMMA": {"in": ["be", "will", "would", "do"]}}]
+count_pattern = [{"LOWER": "how"}, {"LEMMA": "many"}]
 org_pattern = [{"ENT_TYPE": "ORG"}]
 egress_pattern = [{"TEXT": "to"}, {"ENT_TYPE": "GPE"}]
 ingress_pattern = [{"TEXT": "from"}, {"ENT_TYPE": "GPE"}]
@@ -27,6 +28,7 @@ ingress_pattern = [{"TEXT": "from"}, {"ENT_TYPE": "GPE"}]
 #adding patterns to the matcher
 matcher.add("YES_OR_NO_PATTERN", [yes_or_no_pattern])
 matcher.add("HOW_PATTERN", [how_pattern])
+matcher.add("COUNT_PATTERN", [count_pattern])
 matcher.add("ORG_PATTERN", [org_pattern])
 matcher.add("EGRESS_PATTERN", [egress_pattern])
 matcher.add("INGRESS_PATTERN", [ingress_pattern])
@@ -38,6 +40,8 @@ for match_id, start, end in matches:
         intent = "YES_OR_NO"
     elif match_id == nlp.vocab.strings["HOW_PATTERN"]:
         intent = "HOW"
+    elif match_id == nlp.vocab.strings["COUNT_PATTERN"]:
+        intent = "COUNT"
     elif match_id == nlp.vocab.strings["ORG_PATTERN"]:
         org = doc[start:end]
     elif match_id == nlp.vocab.strings["EGRESS_PATTERN"]:
@@ -68,4 +72,3 @@ elif intent == "WHERE":
     pass
 else:
     print("Unable to translate the query.")
-
