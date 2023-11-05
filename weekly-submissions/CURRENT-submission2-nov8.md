@@ -6,6 +6,8 @@ This week, I worked on trying to run the dataset generation provided by the Net2
 
 ### Malachi Daniel
 
+Before Yan worked with PhD students (Xinyu and Yongting) to get the Net2Text generator working, I looked into ways for us to create mock data in Python, using SQLAlchemy as the database engine and Faker to create dummy data. I read some implementations about it and played around locally with the library to see how useful it would be compared to generated data and example data in the paper. It was not as useful as having the originally genrated data. Luckily Yan was able to get the generator working, so we don't need to create mock data using other libraries.
+
 ### Minjae Lee
 
 I commited a file 2 days ago that translates English to MySQL, currently it can only support texts that are like written in the rules that I set, but I plan to add more rules. Specifically the program can translate questions like "How is Google's traffic managed?".
