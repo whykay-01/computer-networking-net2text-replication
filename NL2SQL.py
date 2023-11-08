@@ -61,7 +61,7 @@ elif intent == "HOW":
     if ingress:
         sql_query += f" ingress'{ingress}' AND" 
     if egress:
-        sql_query += f" ingress'{egress}' AND" 
+        sql_query += f" egress'{egress}' AND" 
     if org:
         sql_query += f" org='{org}' AND"
     if sql_query[-3:] == "AND":
