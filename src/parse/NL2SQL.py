@@ -35,6 +35,7 @@ shortest_path_pattern = [{"POS": "ADJ", "LOWER": {"in": ["shortest", "quickest",
 matcher.add("YES_OR_NO_PATTERN", [yes_or_no_pattern])
 matcher.add("HOW_PATTERN", [how_pattern])
 matcher.add("COUNT_PATTERN", [count_pattern])
+matcher.add("DATA_RETRIEVAL_PATTERN", [data_retrieval_pattern])
 matcher.add("ORG_PATTERN", [org_pattern])
 matcher.add("EGRESS_PATTERN", [egress_pattern])
 matcher.add("INGRESS_PATTERN", [ingress_pattern])
