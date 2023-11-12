@@ -35,18 +35,18 @@ if __name__ == "__main__":
     paths = data['paths']
 
     # GENERAL INFORMATION ABOUT THE FORWARDING STATE
-    print 'There are %d paths for %d destinations with a total of %d prefixes' % \
+    print('There are %d paths for %d destinations with a total of %d prefixes' % \)
           (len(paths), len(destination_to_prefix), len(prefix_to_destination))
 
     #
     if True:
         for destination, prefixes in destination_to_prefix.iteritems():
-            print 'Destination %s has %d prefixes.' % (destination, len(prefixes))
-            # print str(prefixes)
+            print('Destination %s has %d prefixes.' % (destination, len(prefixes)))
+            # print(str(prefixes))
 
     # GENERAL INFORMATION ABOUT THE UNDERLYING TOPOLOGY
     topo = nx.read_gpickle('%s/%s' % (input_path, topo_file))
-    print 'The graph has %d nodes and %d edges' % (topo.number_of_nodes(), topo.number_of_edges())
+    print('The graph has %d nodes and %d edges' % (topo.number_of_nodes(), topo.number_of_edges()))
 
     # COMPUTE SCORE OF THE DIFFERENT SPECS (specified below in all_fvs)
     if False:
@@ -78,12 +78,12 @@ if __name__ == "__main__":
                     traffic += path[3]
                     num_paths += 1
 
-            print 'TRAFFIC %f FOR %s WITH %d PATHS' % (traffic, feature_values, num_paths)
+            print('TRAFFIC %f FOR %s WITH %d PATHS' % (traffic, feature_values, num_paths))
 
     if True:
         egresses = set()
         for path in paths:
             egresses.add(path[0][-1])
 
-        print 'THERE ARE %d EGRESSES' % (len(egresses), )
-        print ', '.join([str(x) for x in list(egresses)])
+        print('THERE ARE %d EGRESSES' % (len(egresses), ))
+        print(', '.join([str(x) for x in list(egresses)]))

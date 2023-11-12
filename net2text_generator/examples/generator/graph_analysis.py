@@ -71,6 +71,6 @@ if __name__ == "__main__":
     i = 0
     for graph_file, num_nodes, num_edges in sorted(networks, key=lambda x: x[1], reverse=True):
         i += 1
-        print '%s: Nodes %d, Edges %d' % (graph_file, num_nodes, num_edges)
+        print('%s: Nodes %d, Edges %d' % (graph_file, num_nodes, num_edges))
         if i > 10:
             break

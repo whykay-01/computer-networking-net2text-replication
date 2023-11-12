@@ -17,6 +17,6 @@ patch.linewidth  : 0.5
 font.family     : sans-serif
 font.sans-serif : Lucida Grande
 font.weight     : light
-text.usetex     : True  # use latex for all text handling  
+text.usetex     : False  # use latex for all text handling  
 figure.figsize  : 12, 7.5
 
