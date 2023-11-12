@@ -72,7 +72,7 @@ def Select_intent (intent):
         sql_query = "SELECT * FROM paths WHERE"   
 #Question type 4 Where questions
     elif intent == "DATA_RETRIEVAL":
-        pass
+        sql_query == "SELECT * FROM paths WHERE"
     else:
         print("Unable to translate the query.")
     return sql_query
