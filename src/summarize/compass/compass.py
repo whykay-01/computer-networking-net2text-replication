@@ -11,11 +11,12 @@ OUTPUT:
 A set of specifications S.
 """
 
+
 def compute_candidate_features(R, q, t):
     Q = set()
     for r in R:
         for i in range(len(r)):
-            for j in range(i+1, len(r)):
+            for j in range(i + 1, len(r)):
                 if len(r[i:j]) <= t:
                     Q.add(q(r[i:j]))
     return Q
@@ -28,15 +29,16 @@ def compute_specifications(Q, S):
             L.add(f)
     return L
 
+
 def ComPass(R, q, k, t):
-    S = set() # The specifications set
+    S = set()  # The specifications set
     while len(S) < k:
         # Compute the candidate features
-        q, v = compute_candidate_features(R, q, t) #TODO: Fix this
+        q, v = compute_candidate_features(R, q, t)  # TODO: Fix this
         # Compute the specifications
         L = L.union(v)
         Q = Q.difference(q)
-        R = R.difference(v) #TODO: Fix this
+        R = R.difference(v)  # TODO: Fix this
         # Add the specifications to the specifications set
         if len(L) == t:
             S = S.union(L)
@@ -51,3 +53,6 @@ def ComPass(R, q, k, t):
     return S
 
 
+def main():
+    # TODO: Create the use cases to test whether the algorithm is performing as expected
+    pass
