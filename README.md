@@ -2,4 +2,33 @@
 
 This is a repo for us to collaborate on all the files / papers we will be working on. Please commit appropriately. And don't forget to sync the repo once in 2-3 days.
 
-TODO: please work on making sure that we all have the access for the network database (Updated on Nov 5th, 2023)
+# Explanation of our work
+
+## Database generator
+
+We used the database provided to us by the PhD students (Yongting and Xinyu). This database was initially sourced from the [Paper's authors](#TODO: link here), although we had to make some changes to the python scripts as they were all written in the depreciated python version. Additionally, we had to make some minor changes to make sure that the depreciated packages used by the author function appropriately. Codebase for that could be found in the `net2text_generator` folder in the root folder of the repository.
+
+## SQLite Engine
+
+Malachi and Yan initiated, created, and instantiated the network database using the SQLite engine. We used packages such as SQLite and SQLAlchemy to migrate the data from the python script (previously data was simply stored in the python list of lists) into the SQLite database. The database is located in the `db` folder of the repository.
+
+Right now, it could be easily accessed via the VS Code extension. Here are the details:
+
+```
+Name: SQLite
+Id: alexcvzz.vscode-sqlite
+Description: Explore and query SQLite databases.
+Version: 0.14.1
+Publisher: alexcvzz
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite
+```
+
+To access the database, simply install the extention and then open the `db/network.db` file using `Cmd + Shift + P` and typing `SQLite: Open Database` in the window that appears there. After that press `Enter`. Nothing will happen on your screen, however the database will be initiated on your device. After that, please open the command palette again and type `SQLite: Quick Query`, type `sql SELECT * FROM network` and press `Enter`. The new window will appear with all the data from the database.
+
+(You can also use the `SQLite: Run Query` command to run the query in the current window.)
+
+Additionally, you can use some other packages / extensions to access the database.
+
+## SQL to Natural Language
+
+## Natural language to SQL
