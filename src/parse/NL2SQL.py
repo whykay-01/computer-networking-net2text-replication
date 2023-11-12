@@ -4,8 +4,8 @@ from spacy.matcher import Matcher
 nlp = spacy.load("en_core_web_sm")
 matcher = Matcher(nlp.vocab)
 # Sample English query
-query = "How does the shortest path of Google network traffic go through?"
-
+query = "How does the Google's traffic go through?"
+query1 = "What is the ingress from Atlanta to New York?"
 # Process the query with spaCy
 doc = nlp(query)
 
@@ -31,6 +31,12 @@ ingress_pattern = [{"TEXT": "from"}, {"ENT_TYPE": "GPE"}]
 shortest_path_pattern = [{"POS": "ADJ", "LOWER": {"in": ["shortest", "quickest", "fastest"]},
      "OP": "+"},
     {"LOWER": "path"}]
+word_org_pattern = [{"LOWER": "orgnization"}]
+word_egress_pattern = [{"LOWER": "egress"}]
+word_ingress_pattern = [{"LOWER": 'ingress'}]
+word_path_pattern = [{"LOWER", "path"}]
+word_traffic_size_pattern = [{"LOWER": "traffic"}, {"LOWER": "size"}]
+word_prefix_pattern = [{"LOWER": "prefix"}]
 #adding patterns to the matcher
 matcher.add("YES_OR_NO_PATTERN", [yes_or_no_pattern])
 matcher.add("HOW_PATTERN", [how_pattern])
@@ -89,9 +95,17 @@ def Select_conditions (sql_query):
         sql_query += f" shortest_path='{True}' AND"
     if sql_query[-3:] == "AND":
         sql_query = sql_query[0:-4]
+    if sql_query[-5:] == "WHERE":
+        sql_query = False
+        return sql_query
     return sql_query
 
 sql_query = Select_intent(intent)
 if sql_query:
     sql_query = Select_conditions(sql_query)
-print(sql_query)
+    if sql_query:
+        print(sql_query)
+    else:
+        print("Unable to translate the query")
+else:
+    print("Unable to translate the query")
