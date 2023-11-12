@@ -6,12 +6,14 @@ This week, I worked on trying to run the dataset generation provided by the Net2
 
 ### Malachi Daniel
 
+I initialized our SQLlite database so that we can eventually query it and translate those outputs into natural language. And then I also reorganized the repository file structure.
+
 ### Minjae Lee
 
 I have been adding more rules to the NLP2SQL file, created rules for all 4 types of queries. After discussing with Xinyu, we came to a conclusion that only the "How" type question will use the Compass Algorithm. In addition, I have created a file to start working on translating the results back to SQL.
 
 ### Yan Konichshev
 
-This week Malachi and I worked on the database generation. The main problem with the initial database was that the data was not normalized. Additionally, it was important to make sure that the data was in the correct format for the algorithm to work (relational database). After brainstorming about the way we should approach this problem, we decided to stick with a simple SQLite engine, as creating Docker DB server and deploying it using MySQL would have been somewhat redundant.
+This week Malachi and I worked on the database generation. The main problem with the initial database was that the data was not in a relational database format. After brainstorming about the way we should approach this problem, we decided to stick with a simple SQLite engine, as creating Docker DB server and deploying it using MySQL would have been somewhat redundant.
 
-As of now, I have worked on the script that would allow us to convert the data from the python list of lists into a SQLite DB entries. The script is written in Python and uses the Pandas library to read the CSV file and convert it into a DataFrame. Then, the DataFrame is converted into a SQLite database using the `to_sql` method. The script is located in the `database` folder of the repository.
+Finally, I have worked on the script that would allow us to convert the data from the python list of lists into a SQLite DB entries.
