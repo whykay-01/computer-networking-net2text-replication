@@ -4,49 +4,39 @@ ComPass "Computing Path Specifications" (R, q1,...,ql, k, t)
 INPUT: 
 R: a set of routing paths.
 q1,...,ql: a set of feature functions.
-k: limit on the number of specifications.
-t: limit on the size of specifications.
+k: maximal number of specifications.
+t: maximal size of each specification.
 
 OUTPUT:
 A set of specifications S.
 """
 
-def compute_candidate_features(R, q, t):
-    Q = set()
-    for r in R:
-        for i in range(len(r)):
-            for j in range(i+1, len(r)):
-                if len(r[i:j]) <= t:
-                    Q.add(q(r[i:j]))
-    return Q
-
-
-def compute_specifications(Q, S):
-    L = set()
-    for f in Q:
-        if all([not (f <= s) for s in S]):
-            L.add(f)
-    return L
+def argmax(): # greedy, maximal increase in score
+    return None, None
 
 def ComPass(R, q, k, t):
-    S = set() # The specifications set
+    S = set() # The specifications set, set of solutions
+    L = set() # The last computed specification
+    Q = q # The set of candidate features
     while len(S) < k:
         # Compute the candidate features
-        q, v = compute_candidate_features(R, q, t) #TODO: Fix this
+        q, v = argmax(R, q, t) # compute_candidate_features(R, q, t) #TODO: Fix this
         # Compute the specifications
-        L = L.union(v)
+        L = L.union(set(v))
         Q = Q.difference(q)
-        R = R.difference(v) #TODO: Fix this
+        R = R.difference(v) # Eliminate routing path that won't satisfy feature values
         # Add the specifications to the specifications set
         if len(L) == t:
             S = S.union(L)
             break
-        while len(L) > 0:
-            # Add the specification with the highest score to the specifications set
-            f = max(L, key=lambda f: f.score())
-            S.add(f)
+
+        while len(L) > 0: # Add specification for a higher score even though same path
+            L = L.union(set(v)) # Add the specification with the highest score to the specifications set
+            if len(L) == t:
+                S.add(set(L))
+                break
+            Q = Q.difference(set(q))
             # Remove all specifications that are subsumed by f
-            L = set([f for f in L if not (f <= s)])
         S = S.union(L)
     return S
 
