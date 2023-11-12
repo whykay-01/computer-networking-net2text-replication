@@ -31,7 +31,7 @@ def argmax(Q, L, R, t):
         # if the score is higher than the current maximum
     return best_feature, best_value
 
-def ComPass(R, q, k, t):
+def ComPass(R, q, k, t): # R: set, q: set, k: int, t: int
     S = set() # The specifications set, set of solutions
     L = set() # The last computed specification
     Q = q # The set of candidate features
