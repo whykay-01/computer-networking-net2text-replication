@@ -2,13 +2,12 @@ from sqlalchemy import create_engine
 from schema import NetworkEntry
 
 
-
 def create_db():
-	# Connect to db
-	db_engine = create_engine("sqlite:///network.db")
-	# Create Network Entry table
-	NetworkEntry.metadata.create_all(db_engine)
-	""" Example creation of db row:
+    # Connect to db
+    db_engine = create_engine("sqlite:///network.db")
+    # Create Network Entry table
+    NetworkEntry.metadata.create_all(db_engine)
+    """ Example creation of db row:
 	from sqlalcehmy import select
 	from sqlalchemy.orm import Session
 	from utils.string import path_to_str
@@ -33,7 +32,8 @@ def create_db():
 		# Run the query and return one result (out of potentially more)
 		print(session.scalars(query).one())
 	"""
-	
+    return db_engine
+
 
 if __name__ == "__main__":
-	pass
+    pass
