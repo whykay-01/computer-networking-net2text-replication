@@ -18,7 +18,7 @@ def argmax(Q, L, R, t):
     print("inputs:", Q, L, t)
     max_score = -float('inf')
     best_feature = None
-    best_value = None
+    best_value = None # what is the feature value
     for q in Q:
         if len(L) == t:
             break
@@ -55,7 +55,7 @@ def ComPass(R, q, k, t): # R: set of strings, q: set, k: int, t: int
             S = S.union(L)
             break
         
-        while True: # Add specification for a higher score even though same path
+        while True: # TODO: Add specification for a higher score even though same path
             L = L.union({v}) # Add the specification with the highest score to the specifications set
             if len(L) == t:
                 S.add(set(L))
