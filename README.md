@@ -43,12 +43,17 @@ To access the database, simply install the extention and then open the `db/netwo
 
 Additionally, you can use some other packages / extensions to access the database.
 
+## Network Visualizer
+
+Network visualizer is located in the `src/external` folder. To run it, please run the script without any positional arguments.
+
 ## SQL to Natural Language
 
 This file translates Natural language(English) to SQL. It uses spaCy to tokenize queries. The file is located in the parse folder in the repository.
- ```shell
- cd src/parse
- ```
+
+```shell
+cd src/parse
+```
 
 Run these commands to install spacy in a virtual environment:
 
@@ -64,7 +69,6 @@ To Download a trained pipeline in spaCy, run:
 ```shell
 python -m spacy download en_core_web_sm
 ```
-
 
 ## Natural language to SQL
 
