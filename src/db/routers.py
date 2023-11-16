@@ -25,6 +25,7 @@ class Router(TypedDict):
     id: int
     Longitude: float
     label: str
+    hub_name: str
 
 
 ROUTERS: Final[dict[str, Router]] = {
@@ -36,6 +37,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 0,
         "Longitude": -74.00597,
         "label": "NY54",
+        "hub_name": "New York, NY",
     },
     "1": {
         "Internal": 1,
@@ -45,6 +47,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 1,
         "Longitude": -71.10561,
         "label": "CMBR",
+        "hub_name": "Cambridge, MA",
     },
     "2": {
         "Internal": 1,
@@ -54,6 +57,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 2,
         "Longitude": -87.65005,
         "label": "CHCG",
+        "hub_name": "Chicago, IL",
     },
     "3": {
         "Internal": 1,
@@ -63,6 +67,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 3,
         "Longitude": -81.69541,
         "label": "CLEV",
+        "hub_name": "Cleveland, OH",
     },
     "4": {
         "Internal": 1,
@@ -72,6 +77,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 4,
         "Longitude": -78.63861,
         "label": "RLGH",
+        "hub_name": "Raleigh, NC",
     },
     "5": {
         "Internal": 1,
@@ -81,6 +87,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 5,
         "Longitude": -84.38798,
         "label": "ATLN",
+        "hub_name": "Atlanta, GA",
     },
     "6": {
         "Internal": 1,
@@ -90,6 +97,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 6,
         "Longitude": -75.16379,
         "label": "PHLA",
+        "hub_name": "Philadelphia, PA",
     },
     "7": {
         "Internal": 1,
@@ -99,6 +107,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 7,
         "Longitude": -77.03637,
         "label": "WASH",
+        "hub_name": "Washington, DC",
     },
     "8": {
         "Internal": 1,
@@ -108,6 +117,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 8,
         "Longitude": -86.78444,
         "label": "NSVL",
+        "hub_name": "Nashville, TN",
     },
     "9": {
         "Internal": 1,
@@ -117,6 +127,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 9,
         "Longitude": -90.19789,
         "label": "STLS",
+        "hub_name": "St. Louis, MO",
     },
     "10": {
         "Internal": 1,
@@ -126,6 +137,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 10,
         "Longitude": -90.07507,
         "label": "NWOR",
+        "hub_name": "New Orleans, LA",
     },
     "11": {
         "Internal": 1,
@@ -135,6 +147,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 11,
         "Longitude": -95.36327,
         "label": "HSTN",
+        "hub_name": "Houston, TX",
     },
     "12": {
         "Internal": 1,
@@ -144,6 +157,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 12,
         "Longitude": -98.49363,
         "label": "SNAN",
+        "hub_name": "San Antonio, TX",
     },
     "13": {
         "Internal": 1,
@@ -153,6 +167,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 13,
         "Longitude": -96.80667,
         "label": "DLLS",
+        "hub_name": "Dallas, TX",
     },
     "14": {
         "Internal": 1,
@@ -162,6 +177,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 14,
         "Longitude": -81.37924,
         "label": "ORLD",
+        "hub_name": "Orlando, FL",
     },
     "15": {
         "Internal": 1,
@@ -171,6 +187,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 15,
         "Longitude": -104.9847,
         "label": "DNVR",
+        "hub_name": "Denver, CO",
     },
     "16": {
         "Internal": 1,
@@ -180,6 +197,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 16,
         "Longitude": -94.62746,
         "label": "KSCY",
+        "hub_name": "Kansas City, MO",
     },
     "17": {
         "Internal": 1,
@@ -189,6 +207,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 17,
         "Longitude": -122.41942,
         "label": "SNFN",
+        "hub_name": "San Francisco, CA",
     },
     "18": {
         "Internal": 1,
@@ -198,6 +217,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 18,
         "Longitude": -121.4944,
         "label": "SCRM",
+        "hub_name": "Sacramento, CA",
     },
     "19": {
         "Internal": 1,
@@ -207,6 +227,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 19,
         "Longitude": -122.67621,
         "label": "PTLD",
+        "hub_name": "Portland, OR",
     },
     "20": {
         "Internal": 1,
@@ -216,6 +237,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 20,
         "Longitude": -122.33207,
         "label": "STTL",
+        "hub_name": "Seattle, WA",
     },
     "21": {
         "Internal": 1,
@@ -225,6 +247,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 21,
         "Longitude": -111.89105,
         "label": "SLKC",
+        "hub_name": "Salt Lake City, UT",
     },
     "22": {
         "Internal": 1,
@@ -234,6 +257,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 22,
         "Longitude": -118.24368,
         "label": "LA03",
+        "hub_name": "Los Angeles, CA",
     },
     "23": {
         "Internal": 1,
@@ -243,6 +267,7 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 23,
         "Longitude": -117.15726,
         "label": "SNDG",
+        "hub_name": "San Diego, CA",
     },
     "24": {
         "Internal": 1,
@@ -252,5 +277,6 @@ ROUTERS: Final[dict[str, Router]] = {
         "id": 24,
         "Longitude": -112.07404,
         "label": "PHNX",
+        "hub_name": "Phoenix, AZ",
     },
 }
