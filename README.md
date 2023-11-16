@@ -1,8 +1,10 @@
 # Net2Text Computer Networking
 
-This is a repo for us to collaborate on all the files / papers we will be working on. Please commit appropriately. And don't forget to sync the repo once in 2-3 days.
+This is a repo for us to collaborate on all the files / papers we will be working on. Please commit appropriately. Don't forget to sync the repo once every 2-3 days.
 
 # Explanation of our work
+
+#TODO: finish this after we're done
 
 ## Database generator
 
@@ -11,6 +13,16 @@ We used the database provided to us by the PhD students (Yongting and Xinyu). Th
 ## SQLite Engine
 
 Malachi and Yan initiated, created, and instantiated the network database using the SQLite engine. We used packages such as SQLite and SQLAlchemy to migrate the data from the python script (previously data was simply stored in the python list of lists) into the SQLite database. The database is located in the `db` folder of the repository.
+
+```shell
+cd src/db
+```
+
+### NOTE: THIS WILL GENERATE A NEW DATABASE. IF YOU WANT TO USE THE EXISTING DATABASE, PLEASE SKIP THIS STEP.
+
+```shell
+python insert_data_script.py ../../net2text_generator/examples/att_na_100
+```
 
 Right now, it could be easily accessed via the VS Code extension. Here are the details:
 
@@ -31,4 +43,8 @@ Additionally, you can use some other packages / extensions to access the databas
 
 ## SQL to Natural Language
 
+Minjae to work on this
+
 ## Natural language to SQL
+
+Minjae to work on this
