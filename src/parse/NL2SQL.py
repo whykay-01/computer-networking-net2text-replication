@@ -4,10 +4,10 @@ from spacy.matcher import Matcher
 nlp = spacy.load("en_core_web_sm")
 matcher = Matcher(nlp.vocab)
 # Sample English query
-query = "How does the Google's traffic go through?"
-query1 = "What is the ingress from Atlanta to New York?"
+query = "When the ingress is Atlanta, how does the Google's traffic go through?"
+query1 = "How does the Google's traffic go through from Atlanta?"
 # Process the query with spaCy
-doc = nlp(query)
+doc = nlp(query1)
 
 # Initialize variables for SQL translation
 intent = ""
@@ -26,11 +26,14 @@ count_pattern = [{"LOWER": "how"}, {"LEMMA": "many"}]
 #data retrieval pattern
 data_retrieval_pattern = [{"LOWER": "what"}, {"LEMMA": "be"}]
 org_pattern = [{"ENT_TYPE": "ORG"}]
-egress_pattern = [{"TEXT": "to"}, {"ENT_TYPE": "GPE"}]
-ingress_pattern = [{"TEXT": "from"}, {"ENT_TYPE": "GPE"}]
-shortest_path_pattern = [{"POS": "ADJ", "LOWER": {"in": ["shortest", "quickest", "fastest"]},
+egress_pattern1 = [{"TEXT": "to"}, {"ENT_TYPE": "GPE"}]
+egress_pattern2 = [{"lower": "egress"}, {"lower": "is"}, {"ENT_TYPE": "GPE"}]
+ingress_pattern1 = [{"TEXT": "from"}, {"ENT_TYPE": "GPE"}]
+ingress_pattern2 = [{"lower": "ingress"}, {"lower": "is"}, {"ENT_TYPE": "GPE"}]
+shortest_path_pattern1 = [{"POS": "ADJ", "LOWER": {"in": ["shortest", "quickest", "fastest"]},
      "OP": "+"},
     {"LOWER": "path"}]
+shortest_path_pattern2 = [{"lower": "shortest"}, {"lower": "path"}, {"lower": "is"}, {"lower": "true"}]
 word_org_pattern = [{"LOWER": "orgnization"}]
 word_egress_pattern = [{"LOWER": "egress"}]
 word_ingress_pattern = [{"LOWER": 'ingress'}]
@@ -43,9 +46,9 @@ matcher.add("HOW_PATTERN", [how_pattern])
 matcher.add("COUNT_PATTERN", [count_pattern])
 matcher.add("DATA_RETRIEVAL_PATTERN", [data_retrieval_pattern])
 matcher.add("ORG_PATTERN", [org_pattern])
-matcher.add("EGRESS_PATTERN", [egress_pattern])
-matcher.add("INGRESS_PATTERN", [ingress_pattern])
-matcher.add("SHORTEST_PATH_PATTERN", [shortest_path_pattern])
+matcher.add("EGRESS_PATTERN", [egress_pattern1, egress_pattern2])
+matcher.add("INGRESS_PATTERN", [ingress_pattern1, ingress_pattern2])
+matcher.add("SHORTEST_PATH_PATTERN", [shortest_path_pattern1, shortest_path_pattern2])
 
 matches = matcher(doc)
 
@@ -59,15 +62,16 @@ for match_id, start, end in matches:
     elif match_id == nlp.vocab.strings["ORG_PATTERN"]:
         org = doc[start:end]
     elif match_id == nlp.vocab.strings["EGRESS_PATTERN"]:
-        egress = doc[start+1:end]
+        egress = doc[end-1]
     elif match_id == nlp.vocab.strings["INGRESS_PATTERN"]:
-        ingress = doc[start+1:end]
+        ingress = doc[end-1]
     elif match_id == nlp.vocab.strings["SHORTEST_PATH_PATTERN"]:
         shortest_path = True
 # Construct the SQL query
-#Question type 1: yes or no questions
+
 
 def Select_intent (intent):
+#Question type 1: yes or no questions
     if intent == "YES_OR_NO":
         sql_query = "SELECT CASE WHEN COUNT(*) > 0 THEN TRUE ELSE FALSE ENDS AS result FROM paths WHERE"
 #Question type 2: counting queries
@@ -86,9 +90,9 @@ def Select_intent (intent):
 
 def Select_conditions (sql_query):
     if ingress:
-        sql_query += f" ingress'{ingress}' AND" 
+        sql_query += f" ingress='{ingress}' AND" 
     if egress:
-        sql_query += f" egress'{egress}' AND" 
+        sql_query += f" egress='{egress}' AND" 
     if org:
         sql_query += f" org='{org}' AND"
     if shortest_path:
