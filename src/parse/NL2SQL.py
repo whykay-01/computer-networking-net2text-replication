@@ -10,7 +10,7 @@ query1 = "How does the Google's traffic go through from Atlanta?"
 doc = nlp(query1)
 
 # Initialize variables for SQL translation
-intent = ""
+intent = None
 org = None
 ingress = None
 egress = None
@@ -82,7 +82,7 @@ def Select_intent (intent):
         sql_query = "SELECT * FROM paths WHERE"   
 #Question type 4 Where questions
     elif intent == "DATA_RETRIEVAL":
-        sql_query == "SELECT * FROM paths WHERE"
+        sql_query = "SELECT * FROM paths WHERE"
     else:
         print("Unable to translate the query.")
     return sql_query
