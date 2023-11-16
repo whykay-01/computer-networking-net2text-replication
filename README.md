@@ -24,6 +24,8 @@ cd src/db
 python insert_data_script.py ../../net2text_generator/examples/att_na_100
 ```
 
+If you change the `att_na_100` part of the command to something more advanced, such as `att_na_1000`, or `att_na_10000` then you will load a bigger dataset into the database. However, please note that the bigger the dataset, the longer it will take to load it into the database.
+
 Right now, it could be easily accessed via the VS Code extension. Here are the details:
 
 ```
