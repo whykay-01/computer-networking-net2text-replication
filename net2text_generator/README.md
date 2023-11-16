@@ -1,3 +1,5 @@
+# THIS IS THE ORIGINAL README FILE FROM THE REPO WE CLONED: PLEASE DO NOT USE IT AS IT IS OUTDATED (-Yan)
+
 # Net2Text
 
 This repository contains the code to generate the datasets used in the
@@ -23,20 +25,20 @@ $ python example_generator.py <graph_file> <output_path> [--automatically] [--de
 
 #### Arguments
 
-* __graph_file__ name of the file containing the graph in graphml format (e.g., from [TopologyZoo](http://www.topology-zoo.org/dataset.html)
-* __output_path__ path to the directory where the output should be stored
-* __-a/--automatically__ automatically generate names and pick egresses, if it is not specified, you have to provide
-for each node in the graph the name and pick the egress routers manually.
-* __-d/--debug__ enable debug output
+- **graph_file** name of the file containing the graph in graphml format (e.g., from [TopologyZoo](http://www.topology-zoo.org/dataset.html)
+- **output_path** path to the directory where the output should be stored
+- **-a/--automatically** automatically generate names and pick egresses, if it is not specified, you have to provide
+  for each node in the graph the name and pick the egress routers manually.
+- **-d/--debug** enable debug output
 
-__Note:__ to limit the number of prefixes used in the dataset, just
+**Note:** to limit the number of prefixes used in the dataset, just
 edit line 72 in `example_generator.py`.
 
 ### Helper Scripts
 
-* `example_test.py` - check basic information of a generated example
-(e.g., number of nodes, prefixes, prefixes per destination) and compute
-the score of different summaries.
+- `example_test.py` - check basic information of a generated example
+  (e.g., number of nodes, prefixes, prefixes per destination) and compute
+  the score of different summaries.
 
 ## Loading a Dataset
 
@@ -50,8 +52,7 @@ $ python load_example.py <path>
 
 #### Arguments
 
-* __path__ path to the directory containing the generated files.
-
+- **path** path to the directory containing the generated files.
 
 ## Example using ATT NA
 
