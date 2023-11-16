@@ -43,8 +43,27 @@ Additionally, you can use some other packages / extensions to access the databas
 
 ## SQL to Natural Language
 
-Minjae to work on this
+This file translates Natural language(English) to SQL. It uses spaCy to tokenize queries. The file is located in the parse folder in the repository.
+ ```shell
+ cd src/parse
+ ```
+
+Run these commands to install spacy in a virtual environment:
+
+```shell
+python -m venv .env
+source .env/bin/activate
+pip install -U pip setuptools wheel
+pip install -U spacy
+```
+
+To Download a trained pipeline in spaCy, run:
+
+```shell
+python -m spacy download en_core_web_sm
+```
+
 
 ## Natural language to SQL
 
-Minjae to work on this
+This file translates the results of the compass algorithm back to Natural Language(English)
