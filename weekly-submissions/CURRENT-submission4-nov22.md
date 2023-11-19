@@ -6,7 +6,11 @@ This week, I worked more on the ComPass algorithm. First, I got a sense of what 
 
 ### Malachi Daniel
 
+I worked with Yan to finish loading the output of the generator in to our network database and then I created a dictionary of router ids to location names, so we can accurately show the path taken instead of just numbers
+
 ### Minjae Lee
+
+Nov 19th Weeky report. I have added more matching patterns so that now ingress, egress can be spotted in 2 different ways. For example, for a to spot a ingress one way is to directly spot "ingress is" and another is spotting the word following "from". I am currently working on covering cases when organizations or ingress or egresses are more than one word. I feel that I have created the general pipeline for text to SQL translation, so I wish to help Ashley on the compass algorithm next week or on other parts of the project as well.
 
 ### Yan Konichshev
 
