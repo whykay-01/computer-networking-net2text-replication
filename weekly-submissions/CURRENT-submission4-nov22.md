@@ -2,6 +2,8 @@
 
 ### Ashley Chen
 
+This week, I worked more on the ComPass algorithm. First, I got a sense of what was going on with our database and what is going in and how to read the database. After that, I incorporated that into the ComPass algorithm I wrote last week. I changed a couple of things and have more of an understanding of how things interact with each other. The ComPass algorithm now is capable of returning a specification set. The general algorithm has remained the same, but I changed some of the data types to make the argmax and scoring features work.
+
 ### Malachi Daniel
 
 ### Minjae Lee
