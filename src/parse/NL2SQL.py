@@ -5,10 +5,9 @@ nlp = spacy.load("en_core_web_sm")
 matcher = Matcher(nlp.vocab)
 # Sample English query
 query = "When the ingress is Atlanta, how does the Google's traffic go through?"
-query1 = "How does the Google's traffic go through from Atlanta?"
+query1 = "How does the Google's traffic go through from New York to Chicago?"
 # Process the query with spaCy
 doc = nlp(query1)
-
 # Initialize variables for SQL translation
 intent = None
 org = None
@@ -25,11 +24,11 @@ how_pattern = [{"LOWER": "how"}, {"LEMMA": {"in": ["be", "will", "would", "do"]}
 count_pattern = [{"LOWER": "how"}, {"LEMMA": "many"}]
 #data retrieval pattern
 data_retrieval_pattern = [{"LOWER": "what"}, {"LEMMA": "be"}]
-org_pattern = [{"ENT_TYPE": "ORG"}]
-egress_pattern1 = [{"TEXT": "to"}, {"ENT_TYPE": "GPE"}]
-egress_pattern2 = [{"lower": "egress"}, {"lower": "is"}, {"ENT_TYPE": "GPE"}]
-ingress_pattern1 = [{"TEXT": "from"}, {"ENT_TYPE": "GPE"}]
-ingress_pattern2 = [{"lower": "ingress"}, {"lower": "is"}, {"ENT_TYPE": "GPE"}]
+org_pattern = [{"ENT_TYPE": "ORG"}, {"ENT_TYPE": "ORG", "OP": "*"}]
+egress_pattern1 = [{"TEXT": "to"}, {"ENT_TYPE": "GPE"}, {"ENT_TYPE": "GPE", "OP": "*"}]
+egress_pattern2 = [{"lower": "egress"}, {"lower": "is"}, {"ENT_TYPE": "GPE"}, {"ENT_TYPE": "GPE", "OP": "*"}]
+ingress_pattern1 = [{"TEXT": "from"}, {"ENT_TYPE": "GPE"}, {"ENT_TYPE": "GPE", "OP": "*"}]
+ingress_pattern2 = [{"lower": "ingress"}, {"lower": "is"}, {"ENT_TYPE": "GPE"}, {"ENT_TYPE": "GPE", "OP": "*"}]
 shortest_path_pattern1 = [{"POS": "ADJ", "LOWER": {"in": ["shortest", "quickest", "fastest"]},
      "OP": "+"},
     {"LOWER": "path"}]
@@ -51,7 +50,6 @@ matcher.add("INGRESS_PATTERN", [ingress_pattern1, ingress_pattern2])
 matcher.add("SHORTEST_PATH_PATTERN", [shortest_path_pattern1, shortest_path_pattern2])
 
 matches = matcher(doc)
-
 for match_id, start, end in matches:
     if match_id == nlp.vocab.strings["YES_OR_NO_PATTERN"]:
         intent = "YES_OR_NO"
@@ -64,7 +62,7 @@ for match_id, start, end in matches:
     elif match_id == nlp.vocab.strings["EGRESS_PATTERN"]:
         egress = doc[end-1]
     elif match_id == nlp.vocab.strings["INGRESS_PATTERN"]:
-        ingress = doc[end-1]
+        ingress = doc[start+1:end]
     elif match_id == nlp.vocab.strings["SHORTEST_PATH_PATTERN"]:
         shortest_path = True
 # Construct the SQL query
