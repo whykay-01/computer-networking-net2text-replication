@@ -1,0 +1,1 @@
+{"ndb_conf": {"db_type": "generated", "path": "att_na2_10000", "data": "ndb_dump.out", "topo": "ndb_topo.out"}, "summarizer_conf": {"summary_mode": "tree", "tree_mode": "balanced", "splitting_mode": "traffic_size", "sampling_rate": -1}, "features": ["ingress", "egress", "destination", "shortest_path", "path"]}
