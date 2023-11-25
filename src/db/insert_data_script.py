@@ -19,26 +19,6 @@ sys.path.append("/Users/yan/git-repos/net2text-compnet/src/")
 from string_utils.string_converter import path_to_str
 
 
-def init_connection() -> Connection:
-    engine = create_engine("sqlite:///src/db/network.db")
-
-    try:
-        connection = engine.connect()
-        print("Connection established")
-
-    except:
-        print("Connection failed")
-
-    return connection
-
-
-def terminate_connection(connection) -> None:
-    # Close the connection when done
-    connection.close()
-    print("Connection closed")
-    return
-
-
 def test_connection(connection, table_name: str) -> bool:
     result = connection.execute(
         "SELECT * FROM {table_name};".format(table_name=table_name)
