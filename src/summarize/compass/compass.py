@@ -40,7 +40,7 @@ def argmax(Q, R):
     best_feature = None
     best_feature_value = None
     
-    score = score_feature(v, R) #???
+    score = score_feature(v, R) #return a score for feature q with value v
     if score > max_score:
         max_score = score
         best_feature = q
@@ -61,12 +61,14 @@ def ComPass(R, q, k, t):
         if len(L) == t:
             break
 
-        while L.union({curr_feature}) == L:
-            L.add(curr_feature)
-            if len(L) == t:
-                S.add(L)
-                break
-            Q.remove(curr_feature.q)
+        for path in Q:
+            for feat_func, feat_val in path:
+                while L.union(FeatureValue(feat_func, feat_val)) == L:
+                    L.add(FeatureValue(feat_func, feat_val))
+                    if len(L) == t:
+                        S.add(L)
+                        break
+                    Q.remove(feat_func)
 
         S.add(L)
 
@@ -76,6 +78,7 @@ if __name__ == "__main__":
     con = sqlite3.connect("src/db/network.db")
     cur = con.cursor()
     routing_paths = []
+    # NL TO SQL
     for row in cur.execute('SELECT path, destination, traffic_size, ingress, egress, shortest_path FROM network;'):
         routing_paths.append({
             'path': row[0], 
