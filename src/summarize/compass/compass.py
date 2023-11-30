@@ -13,6 +13,7 @@ A set of specifications S.
 
 import sqlite3
 
+
 class RoutingPath:
     def __init__(self, path, destination, ingress, egress, shortest_path, traffic_size):
         self.path = path
@@ -35,7 +36,14 @@ class FeatureValue:
         self.q = q
         self.v = v
 
-def score_feature(v, q, R):
+
+def score_feature(q, v, R):
+    """
+    takes a routing path, and calculates the traffic size of the path
+    :param q: a feature function (egress, ingress, shortest_path, destination)
+    :param v: a feature value (NY, LA, etc. for ingress or egress, 1 or 0 for shortest_path, name of the destination and etc)
+    :param R: a set of routing paths
+    """
     # Use traffic size as weight
     weight = 0
     for path in R:
@@ -43,17 +51,19 @@ def score_feature(v, q, R):
     # Compute the score
     weight = R.q == v
 
+
 def argmax(Q, R):
-    max_score = -float('inf')
+    max_score = -float("inf")
     best_feature = None
     best_feature_value = None
-    
-    score = score_feature(v, R) #return a score for feature q with value v
+
+    score = score_feature(v, R)  # return a score for feature q with value v
     if score > max_score:
         max_score = score
         best_feature = q
         best_feature_value = v
     return best_feature, best_feature_value
+
 
 def ComPass(R, q, k, t):
     S = set()  # The specifications set, set of solutions
@@ -65,7 +75,7 @@ def ComPass(R, q, k, t):
         curr_feature = FeatureValue(q, v)
         L.add(curr_feature)
         Q.remove(q)
-        
+
         if len(L) == t:
             break
 
@@ -82,21 +92,28 @@ def ComPass(R, q, k, t):
 
     return S
 
+
 if __name__ == "__main__":
     con = sqlite3.connect("src/db/network.db")
     cur = con.cursor()
     routing_paths = []
     # NL TO SQL
-    for row in cur.execute('SELECT path, destination, traffic_size, ingress, egress, shortest_path FROM network;'):
-        routing_paths.append({
-            'path': row[0], 
-            'destination': row[1],
-            'traffic_size': row[2],
-            'ingress': row[3],
-            'egress': row[4],
-            'shortest_path': row[5]
-        })
+    for row in cur.execute(
+        "SELECT path, destination, traffic_size, ingress, egress, shortest_path FROM network;"
+    ):
+        routing_paths.append(
+            {
+                "path": row[0],
+                "destination": row[1],
+                "traffic_size": row[2],
+                "ingress": row[3],
+                "egress": row[4],
+                "shortest_path": row[5],
+            }
+        )
 
     # Example execution
-    specifications = ComPass(routing_paths, {"egress", "ingress", "shortest_path", "organization"}, k=5, t=3)    
+    specifications = ComPass(
+        routing_paths, {"egress", "ingress", "shortest_path", "organization"}, k=5, t=3
+    )
     print(specifications)
