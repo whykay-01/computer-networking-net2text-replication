@@ -15,13 +15,13 @@ import sqlite3
 
 
 class RoutingPath:
-    def __init__(self, path, destination, ingress, egress, shortest_path, traffic_size):
+    def __init__(self, path, destination, traffic_size, ingress, egress, shortest_path):
         self.path = path
         self.destination = destination
+        self.traffic_size = traffic_size
         self.ingress = ingress
         self.egress = egress
         self.shortest_path = shortest_path
-        self.traffic_size = traffic_size
 
     def get_feature_value(self, feature_function):
         if feature_function == "egress":
@@ -33,17 +33,17 @@ class RoutingPath:
         elif feature_function == "destination":
             return self.destination
 
-class FeatureValue:
-    def __init__(self, q, v):
-        """
-        :param q: a feature function
-        :param v: a feature value
+# class :
+#     def __init__(self, q, v):
+#         """
+#         :param q: a feature function
+#         :param v: a feature value
 
-        set of feature functions in our use case:
-        {"egress": row[5], "ingress": row[4], "shortest_path": row[6], "destination": row[3]}
-        """
-        self.q = q
-        self.v = v
+#         set of feature functions in our use case:
+#         {"egress": row[5], "ingress": row[4], "shortest_path": row[6], "destination": row[3]}
+#         """
+#         self.q = q
+#         self.v = v
 
 
 def score_feature(q, v, R):
@@ -55,19 +55,26 @@ def score_feature(q, v, R):
     """
     # Use traffic size as weight
     weight = 0
+    # print(q, v)
     for path in R:
+        print(q, v, path.traffic_size)
         if q == "egress":
+            print(path.egress)
             if path.egress == v:
                 weight += path.traffic_size
         elif q == "ingress":
+            print(path.ingress)
             if path.ingress == v:
                 weight += path.traffic_size
         elif q == "shortest_path":
+            print(path.shortest_path)
             if path.shortest_path == v:
                 weight += path.traffic_size
         elif q == "destination":
+            print(path.destination)
             if path.destination == v:
                 weight += path.traffic_size
+        print(weight)
     return weight
 
 
@@ -87,7 +94,7 @@ def argmax(Q: set, R):
             feature_values.add(row)
         cur.close()
         for v in feature_values:
-            score = score_feature(q, v, R)
+            score = score_feature(q, v[0], R)
             if score > max_score:
                 max_score = score
                 best_feature = q
@@ -103,7 +110,7 @@ def ComPass(R, q, k, t):
 
     while len(S) < k:
         q, v = argmax(Q, R)
-        curr_feature = FeatureValue(q, v)
+        curr_feature = (q, v)
         L = L.union(curr_feature)
         Q = Q.difference(q)
 
@@ -114,8 +121,8 @@ def ComPass(R, q, k, t):
             for feature_function in Q:
                 feature_value = path.get_feature_value(feature_function)
                 
-                while L.union(FeatureValue(feature_function, feature_value)) == L:
-                    L = L.union(FeatureValue(feature_function, feature_value))
+                while L.union((feature_function, feature_value)) == L:
+                    L = L.union((feature_function, feature_value))
                     if len(L) == t:
                         S.add(L)
                         break
@@ -135,12 +142,12 @@ if __name__ == "__main__":
     ):
         routing_paths.append(
             RoutingPath(
-                row[0],
-                row[1],
-                row[2],
-                row[3],
-                row[4],
-                row[5],
+                path=row[0],
+                destination=row[1],
+                traffic_size=row[2],
+                ingress=row[3],
+                egress=row[4],
+                shortest_path=row[5],
             )
         )
 
