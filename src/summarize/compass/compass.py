@@ -27,13 +27,13 @@ class FeatureValue:
         self.q = q
         self.v = v
 
-def score_feature(v, R):
+def score_feature(v, q, R):
     # Use traffic size as weight
     weight = 0
     for path in R:
         weight += path.traffic_size
     # Compute the score
-    pass #TODO
+    weight = R.q == v
 
 def argmax(Q, R):
     max_score = -float('inf')
