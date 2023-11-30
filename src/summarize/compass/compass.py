@@ -23,6 +23,15 @@ class RoutingPath:
         self.shortest_path = shortest_path
         self.traffic_size = traffic_size
 
+    def get_feature_value(self, feature_function):
+        if feature_function == "egress":
+            return self.egress
+        elif feature_function == "ingress":
+            return self.ingress
+        elif feature_function == "shortest_path":
+            return self.shortest_path
+        elif feature_function == "destination":
+            return self.destination
 
 class FeatureValue:
     def __init__(self, q, v):
@@ -73,9 +82,9 @@ def argmax(Q: set, R):
         cur = con.cursor()
         # select all the values for the feature function
         for row in cur.execute(
-            "SELECT DISTINCT {feature_function_name} FROM network;".format(q)
+            f"SELECT DISTINCT {q} FROM network;"
         ):
-            feature_values.add(row[q])
+            feature_values.add(row)
         cur.close()
         for v in feature_values:
             score = score_feature(q, v, R)
@@ -95,22 +104,24 @@ def ComPass(R, q, k, t):
     while len(S) < k:
         q, v = argmax(Q, R)
         curr_feature = FeatureValue(q, v)
-        L.add(curr_feature)
-        Q.remove(q)
+        L = L.union(curr_feature)
+        Q = Q.difference(q)
 
         if len(L) == t:
             break
 
-        for path in Q:
-            for feat_func, feat_val in path:
-                while L.union(FeatureValue(feat_func, feat_val)) == L:
-                    L.add(FeatureValue(feat_func, feat_val))
+        for path in R:
+            for feature_function in Q:
+                feature_value = path.get_feature_value(feature_function)
+                
+                while L.union(FeatureValue(feature_function, feature_value)) == L:
+                    L = L.union(FeatureValue(feature_function, feature_value))
                     if len(L) == t:
                         S.add(L)
                         break
-                    Q.remove(feat_func)
+                    Q.remove(feature_function)
 
-        S.add(L)
+        S = S.union(L)
 
     return S
 
@@ -123,14 +134,14 @@ if __name__ == "__main__":
         "SELECT path, destination, traffic_size, ingress, egress, shortest_path FROM network;"
     ):
         routing_paths.append(
-            {
-                "path": row[0],
-                "destination": row[1],
-                "traffic_size": row[2],
-                "ingress": row[3],
-                "egress": row[4],
-                "shortest_path": row[5],
-            }
+            RoutingPath(
+                row[0],
+                row[1],
+                row[2],
+                row[3],
+                row[4],
+                row[5],
+            )
         )
 
     # Example execution
