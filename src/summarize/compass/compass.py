@@ -33,19 +33,6 @@ class RoutingPath:
         elif feature_function == "destination":
             return self.destination
 
-# class :
-#     def __init__(self, q, v):
-#         """
-#         :param q: a feature function
-#         :param v: a feature value
-
-#         set of feature functions in our use case:
-#         {"egress": row[5], "ingress": row[4], "shortest_path": row[6], "destination": row[3]}
-#         """
-#         self.q = q
-#         self.v = v
-
-
 def score_feature(q, v, R):
     """
     takes a routing path, and calculates the traffic size of the path
@@ -55,26 +42,19 @@ def score_feature(q, v, R):
     """
     # Use traffic size as weight
     weight = 0
-    # print(q, v)
     for path in R:
-        print(q, v, path.traffic_size)
         if q == "egress":
-            print(path.egress)
             if path.egress == v:
                 weight += path.traffic_size
         elif q == "ingress":
-            print(path.ingress)
             if path.ingress == v:
                 weight += path.traffic_size
         elif q == "shortest_path":
-            print(path.shortest_path)
             if path.shortest_path == v:
                 weight += path.traffic_size
         elif q == "destination":
-            print(path.destination)
             if path.destination == v:
                 weight += path.traffic_size
-        print(weight)
     return weight
 
 
@@ -94,7 +74,8 @@ def argmax(Q: set, R):
             feature_values.add(row)
         cur.close()
         for v in feature_values:
-            score = score_feature(q, v[0], R)
+            v = v[0]
+            score = score_feature(q, v, R)
             if score > max_score:
                 max_score = score
                 best_feature = q
@@ -111,8 +92,8 @@ def ComPass(R, q, k, t):
     while len(S) < k:
         q, v = argmax(Q, R)
         curr_feature = (q, v)
-        L = L.union(curr_feature)
-        Q = Q.difference(q)
+        L = L.union((curr_feature))
+        Q = Q.difference({q})
 
         if len(L) == t:
             break
@@ -126,7 +107,7 @@ def ComPass(R, q, k, t):
                     if len(L) == t:
                         S.add(L)
                         break
-                    Q.remove(feature_function)
+                    Q = Q.difference({feature_function})
 
         S = S.union(L)
 
