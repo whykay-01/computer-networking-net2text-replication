@@ -86,16 +86,19 @@ def argmax(Q: set, R):
 
 def ComPass(R, q, k, t):
     S = set()  # The specifications set, set of solutions
+    ss = [] # Return specifications
     L = set()  # The last computed specification
     Q = q  # The set of candidate features
 
-    while len(S) < k:
+    while len(S) <= k:
         q, v = argmax(Q, R)
         curr_feature = (q, v)
         L = L.union(frozenset([curr_feature]))
         Q = Q.difference({q})
 
-        if len(L) == t:
+        if len(L) > t:
+            S = S.union(L)
+            L = set()
             break
 
         for path in R:
@@ -110,8 +113,9 @@ def ComPass(R, q, k, t):
                     Q = Q.difference({feature_function})
 
         S = S.union(L)
+        ss.append(S)
 
-    return S
+    return ss
 
 
 if __name__ == "__main__":
@@ -134,6 +138,6 @@ if __name__ == "__main__":
 
     # Example execution
     specifications = ComPass(
-        routing_paths, {"egress", "ingress", "shortest_path", "destination"}, k=5, t=3
+        routing_paths, {"egress", "ingress", "shortest_path", "destination"}, k=5, t=4
     )
     print(specifications)
