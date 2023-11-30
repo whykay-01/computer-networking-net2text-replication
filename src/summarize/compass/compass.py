@@ -119,7 +119,6 @@ if __name__ == "__main__":
     con = sqlite3.connect("src/db/network.db")
     cur = con.cursor()
     routing_paths = []
-    # NL TO SQL
     for row in cur.execute(
         "SELECT path, destination, traffic_size, ingress, egress, shortest_path FROM network;"
     ):
@@ -136,6 +135,6 @@ if __name__ == "__main__":
 
     # Example execution
     specifications = ComPass(
-        routing_paths, {"egress", "ingress", "shortest_path", "organization"}, k=5, t=3
+        routing_paths, {"egress", "ingress", "shortest_path", "destination"}, k=5, t=3
     )
     print(specifications)
