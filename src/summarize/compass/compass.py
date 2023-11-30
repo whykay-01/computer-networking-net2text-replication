@@ -62,16 +62,28 @@ def score_feature(q, v, R):
     return weight
 
 
-def argmax(Q, R):
+def argmax(Q: set, R):
     max_score = -float("inf")
     best_feature = None
     best_feature_value = None
 
-    score = score_feature(v, R)  # return a score for feature q with value v
-    if score > max_score:
-        max_score = score
-        best_feature = q
-        best_feature_value = v
+    for q in Q:
+        feature_values = set()
+        con = sqlite3.connect("src/db/network.db")
+        cur = con.cursor()
+        # select all the values for the feature function
+        for row in cur.execute(
+            "SELECT DISTINCT {feature_function_name} FROM network;".format(q)
+        ):
+            feature_values.add(row[q])
+        cur.close()
+        for v in feature_values:
+            score = score_feature(q, v, R)
+            if score > max_score:
+                max_score = score
+                best_feature = q
+                best_feature_value = v
+
     return best_feature, best_feature_value
 
 
