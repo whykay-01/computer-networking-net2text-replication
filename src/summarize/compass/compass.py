@@ -92,7 +92,7 @@ def ComPass(R, q, k, t):
     while len(S) < k:
         q, v = argmax(Q, R)
         curr_feature = (q, v)
-        L = L.union((curr_feature))
+        L = L.union(frozenset([curr_feature]))
         Q = Q.difference({q})
 
         if len(L) == t:
@@ -101,11 +101,11 @@ def ComPass(R, q, k, t):
         for path in R:
             for feature_function in Q:
                 feature_value = path.get_feature_value(feature_function)
-                
-                while L.union((feature_function, feature_value)) == L:
-                    L = L.union((feature_function, feature_value))
+                new_feature = frozenset([(feature_function, feature_value)])
+                while L.union(new_feature) == L:
+                    L = L.union(new_feature)
                     if len(L) == t:
-                        S.add(L)
+                        S = S.union(L)
                         break
                     Q = Q.difference({feature_function})
 
