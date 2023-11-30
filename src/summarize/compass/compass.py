@@ -22,8 +22,16 @@ class RoutingPath:
         self.shortest_path = shortest_path
         self.traffic_size = traffic_size
 
+
 class FeatureValue:
     def __init__(self, q, v):
+        """
+        :param q: a feature function
+        :param v: a feature value
+
+        set of feature functions in our use case:
+        {"egress": row[5], "ingress": row[4], "shortest_path": row[6], "destination": row[3]}
+        """
         self.q = q
         self.v = v
 
