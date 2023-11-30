@@ -4,6 +4,7 @@ from spacy.matcher import Matcher
 # Load the English language model
 query = "When the ingress is Atlanta, how does the Google's traffic go through?"
 query1 = "How does the Google's traffic go through from New York to Chicago?"
+query2 = "How does the network's traffic get handled?"
 
 
 def parse(query):
@@ -12,7 +13,7 @@ def parse(query):
     # Sample English query
 
     # Process the query with spaCy
-    doc = nlp(query)
+    doc = nlp(query2)
     # Initialize variables for SQL translation
     intent = None
     org = None
@@ -127,7 +128,7 @@ def parse(query):
         if sql_query[-3:] == "AND":
             sql_query = sql_query[0:-4]
         if sql_query[-5:] == "WHERE":
-            sql_query = False
+            sql_query = sql_query[:-5]
             return sql_query
         return sql_query
 
