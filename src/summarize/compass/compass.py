@@ -47,9 +47,19 @@ def score_feature(q, v, R):
     # Use traffic size as weight
     weight = 0
     for path in R:
-        weight += path.traffic_size
-    # Compute the score
-    weight = R.q == v
+        if q == "egress":
+            if path.egress == v:
+                weight += path.traffic_size
+        elif q == "ingress":
+            if path.ingress == v:
+                weight += path.traffic_size
+        elif q == "shortest_path":
+            if path.shortest_path == v:
+                weight += path.traffic_size
+        elif q == "destination":
+            if path.destination == v:
+                weight += path.traffic_size
+    return weight
 
 
 def argmax(Q, R):
