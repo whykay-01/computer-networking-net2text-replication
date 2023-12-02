@@ -11,6 +11,8 @@ OUTPUT:
 A set of specifications S.
 """
 
+from NL2SQL import parse
+from SQL2NL import back_to_natural_language
 import sqlite3
 
 
@@ -122,8 +124,10 @@ if __name__ == "__main__":
     con = sqlite3.connect("src/db/network.db")
     cur = con.cursor()
     routing_paths = []
+    parse_result, condition = parse("How does Yahoo's traffic from Chicago get handled?")
     for row in cur.execute(
-        "SELECT path, destination, traffic_size, ingress, egress, shortest_path FROM network;"
+        parse_result
+         #"SELECT path, destination, traffic_size, ingress, egress, shortest_path FROM network;"
     ):
         routing_paths.append(
             RoutingPath(
@@ -141,3 +145,6 @@ if __name__ == "__main__":
         routing_paths, {"egress", "ingress", "shortest_path", "destination"}, k=5, t=4
     )
     print(specifications)
+    final_result = back_to_natural_language(specifications, condition)
+    print(final_result)
+    
