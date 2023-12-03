@@ -124,7 +124,7 @@ if __name__ == "__main__":
     con = sqlite3.connect("src/db/network.db")
     cur = con.cursor()
     routing_paths = []
-    parse_result, condition = parse("How does Yahoo's traffic from Chicago get handled?")
+    parse_result, condition = parse("How is CJ-HELLOVISION's traffic get handled?")
     for row in cur.execute(
         parse_result
          #"SELECT path, destination, traffic_size, ingress, egress, shortest_path FROM network;"

@@ -7,7 +7,7 @@ import sqlite3
 # Now you can import the module using an absolute path
 query = "When the ingress is Salt Lake City, how does the Yahoo's traffic go through?"
 query1 = "How does the Tikona Digital Networks Pvt Ltd.'s traffic go through from New York to Chicago?"
-query2 = "How does the traffic get handled?"
+query2 = "How does Yahoo's traffic get handled?"
 
 def parse(query):
     con = sqlite3.connect("src/db/network.db")
@@ -161,17 +161,16 @@ def parse(query):
         return sql_query
 
     def Select_conditions(sql_query):
-        print(ingress)
         original_conditions = []
         if ingress:
             sql_query += f" ingress='{ingress}' AND"
-            original_conditions.append(ingress)
+            original_conditions.append(["ingress", ingress])
         if egress:
             sql_query += f" egress='{egress}' AND"
-            original_conditions.append(egress)
+            original_conditions.append(["egress", egress])
         if org:
             sql_query += f" destination='{org}' AND"
-            original_conditions.append(org)
+            original_conditions.append(["destination", org])
         if shortest_path:
             sql_query += f" shortest_path='{True}' AND"
         if sql_query[-3:] == "AND":
@@ -187,10 +186,9 @@ def parse(query):
         if sql_query:
             return sql_query, original_conditions
         else:
-            return "Unable to translate the query"
+            return "SELECT path, destination, traffic_size, ingress, egress, shortest_path FROM network", []
     else:
-        return "Unable to translate the query"
+        return "SELECT path, destination, traffic_size, ingress, egress, shortest_path FROM network", []
 
 
-result = parse(query2)
-print(result)
+# result, condition = parse(query2)
