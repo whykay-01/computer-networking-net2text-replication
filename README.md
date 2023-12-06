@@ -4,7 +4,13 @@ This is a repo for us to collaborate on all the files / papers we will be workin
 
 # Explanation of our work
 
-#TODO: finish this after we're done
+Before starting to work with this repo, please make sure that you are meeting all the prerequisites. If you are not, please install them into the newly created virtual environment before continuing.
+
+```shell
+python -m venv .env
+source .env/bin/activate
+pip install -r requirements.txt
+```
 
 ## Database generator
 
