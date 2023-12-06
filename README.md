@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 ## Database generator
 
-We used the database provided to us by the PhD students (Yongting and Xinyu). This database was initially sourced from the [Paper's authors](#TODO: link here), although we had to make some changes to the python scripts as they were all written in the depreciated python version. Additionally, we had to make some minor changes to make sure that the depreciated packages used by the author function appropriately. Codebase for that could be found in the `net2text_generator` folder in the root folder of the repository.
+We used the database provided to us by the PhD students (Yongting and Xinyu). This database was initially sourced from the [Paper's authors](https://github.com/nsg-ethz/net2text), although we had to make some changes to the python scripts as they were all written in the depreciated python version. Additionally, we had to make some minor changes to make sure that the depreciated packages used by the author function appropriately. Codebase for that could be found in the `net2text_generator` folder in the root folder of the repository.
 
 ## SQLite Engine
 
@@ -24,7 +24,7 @@ Malachi and Yan initiated, created, and instantiated the network database using 
 cd src/db
 ```
 
-### NOTE: THIS WILL GENERATE A NEW DATABASE. IF YOU WANT TO USE THE EXISTING DATABASE, PLEASE SKIP THIS STEP.
+### NOTE: THIS FOLLOWING COMMAND WILL GENERATE A NEW DATABASE. IF YOU WANT TO USE THE EXISTING DATABASE, PLEASE SKIP THIS STEP.
 
 ```shell
 python insert_data_script.py ../../net2text_generator/examples/att_na_100
