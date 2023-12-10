@@ -115,7 +115,7 @@ def back_to_natural_language(compass_result, condition):
             result = f"{first_percentage}% of traffic from {ingress} "
             if second_condition[0] == "egress":
                 result += f"exits to {egress}. "
-                result += f"{second_percentage}% of its traffic exitting to {egress} takes the {shortest_path} path and is handled by {destination}."
+                result += f"{second_percentage}% of its traffic exiting to {egress} takes the {shortest_path} path and is handled by {destination}."
             elif second_condition[0] == "destination":
                 result += f"is handled by {destination}. "
                 result += f"{second_percentage}% of its traffic handled by {destination} takes the {shortest_path} path to exit to {egress}."
@@ -146,7 +146,7 @@ def back_to_natural_language(compass_result, condition):
         if third_condition[0] == "ingress":
             result = f"{first_percentage}% of {destination}'s traffic that exits to {egress} enters from {ingress}."
         elif third_condition[0] == "egress":
-            result = f"{first_percentage}% of {destination}'s traffic that enters from {ingress} enters to {egress}."
+            result = f"{first_percentage}% of {destination}'s traffic that enters from {ingress} exits to {egress}."
         elif third_condition[0] == "destination":
             result = f"{first_percentage}% of traffic that exits to {egress} enters from {ingress} is handled by {destination}."
     elif len(condition) == 3:

@@ -73,3 +73,5 @@ python -m spacy download en_core_web_sm
 ## Natural language to SQL
 
 This file translates the results of the compass algorithm back to Natural Language(English)
+
+First, the functions add traffic weights in percentages to the compass result, then the compass result is translated to natural language.

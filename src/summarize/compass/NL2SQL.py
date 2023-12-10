@@ -6,9 +6,8 @@ import sqlite3
 
 # Now you can import the module using an absolute path
 query = "When the ingress is Salt Lake City, how does the Yahoo's traffic go through?"
-query1 = "How does the Tikona Digital Networks Pvt Ltd.'s traffic go through from New York to Chicago?"
+query1 = "How does Tikona Digital Networks Pvt Ltd.'s traffic go through from New York to Chicago?"
 query2 = "How does Yahoo's traffic get handled?"
-
 def parse(query):
     con = sqlite3.connect("src/db/network.db")
     cur = con.cursor()
@@ -190,5 +189,6 @@ def parse(query):
     else:
         return "SELECT path, destination, traffic_size, ingress, egress, shortest_path FROM network", []
 
-
-# result, condition = parse(query2)
+print(query1)
+result, condition = parse(query1)
+print(result)
