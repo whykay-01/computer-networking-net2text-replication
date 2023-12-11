@@ -55,6 +55,8 @@ Network visualizer is located in the `src/external` folder. To run it, please ru
 
 ## SQL to Natural Language
 
+Created by Minjae.
+
 This file translates Natural language(English) to SQL. It uses spaCy to tokenize queries. The file is located in the parse folder in the repository.
 
 ```shell
@@ -75,6 +77,8 @@ To Download a trained pipeline in spaCy, run:
 ```shell
 python -m spacy download en_core_web_sm
 ```
+
+The underlying concept behind this translation is context-free grammar. Using spaCy, used matching rules to match user's inputs with SQL queries. More rules could be added or machine learning concepts could be used for improvment. Currently, you could easily ask questions in which it would not understand. If you enter conditions that are not in the database, the query won't translate it into SQL.
 
 ## Natural language to SQL
 
