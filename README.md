@@ -4,7 +4,11 @@ This is a repo for us to collaborate on all the files / papers we will be workin
 
 # Explanation of our work
 
-Before starting to work with this repo, please make sure that you are meeting all the prerequisites. If you are not, please install them into the newly created virtual environment before continuing.
+This is a project Yan Konichshev, Malachi Daniel, Ashley Chen, and Minjae Lee undertook as a part of the computer networking class at NYU Shanghai. Part of the course evaluation included some work with regards to the [Net2Text](https://www.usenix.org/conference/nsdi18/presentation/birkner) paper. We were tasked with creating a database of networks and then using the Compass algorithm (efficient summarization algotrithm), Argmax algorithm (to realize which features are making the most sense to summarize), and scoring function (to score features which will be used for summarization) to generate the natural language descriptions of the networks. We were also tasked with creating a natural language to SQL translator. This repo contains all the code we used to complete the project.
+
+To replicate our emulations and experimental findings -- please follow instructions below. Do not hesitate to reach out to us if you have any questions. But before that, we encourage you to read the paper and the codebase to understand what we did and how we did it.
+
+To start working with this repo, please make sure that you are meeting all the prerequisites. If you are not, please install them into the newly created virtual environment before continuing.
 
 ```shell
 python -m venv .env
@@ -18,7 +22,9 @@ We used the database provided to us by the PhD students (Yongting and Xinyu). Th
 
 ## SQLite Engine
 
-Malachi and Yan initiated, created, and instantiated the network database using the SQLite engine. We used packages such as SQLite and SQLAlchemy to migrate the data from the python script (previously data was simply stored in the python list of lists) into the SQLite database. The database is located in the `db` folder of the repository.
+Malachi and Yan initiated, created, and instantiated the network database using the SQLite engine. We used packages such as SQLite and SQLAlchemy to migrate the data from the python script (previously data was simply stored in the python list of lists) into the SQLite database. The database file is located in the `db` folder of the repository.
+
+This means that you do not have to initiate the database yourself. However, if you want to do that, please follow the instructions below. It is a plug and play solution, so you do not have to worry about instantiating the server, just connect to the `.db` file and query from it.
 
 ```shell
 cd src/db
@@ -30,9 +36,9 @@ cd src/db
 python insert_data_script.py ../../net2text_generator/examples/att_na_100
 ```
 
-If you change the `att_na_100` part of the command to something more advanced, such as `att_na_1000`, or `att_na_10000` then you will load a bigger dataset into the database. However, please note that the bigger the dataset, the longer it will take to load it into the database.
+If you change the `att_na_100` part of the command to something more advanced, such as `att_na_1000`, or `att_na_10000` then you will load a **bigger dataset** into the database. However, please note that the bigger the dataset, the longer it will take to load it into the database.
 
-Right now, it could be easily accessed via the VS Code extension. Here are the details:
+Right now, it could be easily accessed via the VS Code extension. Here are the details of the extension you could use:
 
 ```
 Name: SQLite
@@ -51,11 +57,11 @@ Additionally, you can use some other packages / extensions to access the databas
 
 ## Network Visualizer
 
-Network visualizer is located in the `src/external` folder. To run it, please run the script without any positional arguments.
+Network visualizer is located in the `src/external` folder. To run it, please run the script without any positional arguments. It is a simple generator that has already produced a basic network visualization for the `att_na_10000` dataset. It could be accessed via your browser. Simply open the `src/external/nx.html` file in your browser and you will see the network visualization.
 
 ## SQL to Natural Language
 
-Created by Minjae.
+The following part is created by Minjae.
 
 This file translates Natural language(English) to SQL. It uses spaCy to tokenize queries. The file is located in the parse folder in the repository.
 
@@ -78,7 +84,7 @@ To Download a trained pipeline in spaCy, run:
 python -m spacy download en_core_web_sm
 ```
 
-The underlying concept behind this translation is context-free grammar. Using spaCy, used matching rules to match user's inputs with SQL queries. More rules could be added or machine learning concepts could be used for improvment. Currently, you could easily ask questions in which it would not understand. If you enter conditions that are not in the database, the query won't translate it into SQL.
+The underlying concept behind this translation is context-free grammars. Using spaCy, used matching rules to match user's inputs with SQL queries. More rules could be added or machine learning concepts could be used for improvment. Currently, you could easily ask questions in which it would not understand. If you enter conditions that are not in the database, the query won't translate it into SQL.
 
 ## Natural language to SQL
 
