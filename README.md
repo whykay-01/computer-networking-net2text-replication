@@ -91,3 +91,10 @@ The underlying concept behind this translation is context-free grammars. Using s
 This file translates the results of the compass algorithm back to Natural Language(English)
 
 First, the functions add traffic weights in percentages to the compass result, then the compass result is translated to natural language.
+
+## ComPass
+The `compass.py` consists the ComPass algorithm mentioned in the Net2Text paper which is an approximation algorithm for generating high-level summaries. The main function used is the `ComPass(R, q, k, t)` method. 
+
+The algorithm finds the feature function that scores the highest from the `argmax(Q, R)` function and adds it to the set L while removing it from the set of candidate features Q. After that, it optimizes the next searches by only searching the remaining feature functions per path. This set is added to set S which is the return set. `ComPass` repeats the process until the set S has reached maximum specifications.
+
+The other two functions are `argmax` and `score_feature(q, v, R)`. `score_feature` adds the traffic size to the weight of the path if that is the current value we are checking for. `argmax` uses the `score_feature` function and returns the path with the highest score.
